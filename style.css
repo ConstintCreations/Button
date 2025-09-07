@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #484357;
+}
+
+.inner-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -210px 0px 0px -165px;
+    background-color: #da8f8f;
+    border: 5px solid #ffffff;
+    padding: 80px 160px;
+    border-radius: 50%;
+    font-size: 16px;
+    transition: padding 0.15s ease, margin 0.15s ease;
+}
+
+.outer-button {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin: -120px 0px 0px -165px;
+    background-color: #925555;
+    border: 5px solid #ffffff;
+    padding: 120px 160px;
+    border-radius: 0px 0px 50% 50%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: padding 0.15s ease, margin 0.15s ease;
+}
+
+.button-outer-base {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -20%);
+    background-color: #463f3f;
+    border: 5px solid #ffffff;
+    padding: 180px 200px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: padding 0.3s ease;
+}
+
+.button-inner-base {
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, -5%);
+    background-color: #585353;
+    border: 5px solid #ffffff;
+    padding: 110px 200px;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: padding 0.3s ease;
+}
+
+.outer-button:active .inner-button {
+    margin: -150px 0px 0px -165px;
+}
+
+.outer-button:active {
+    margin: 0px 0px 0px -165px;
+    padding: 60px 160px;
+}
