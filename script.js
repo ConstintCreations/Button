@@ -9,12 +9,15 @@ const longPatternLightColor = "#7ba2dd";
 const shortPressLightColor = "#ddb67b";
 const longPressLightColor = "#ddd87b";
 
+const goLightColor = "#00ff00";
+const stopLightColor = "#ff0000";
+
 const pressDownSound = new Audio("audio/press-down.wav");
 const pressUpSound = new Audio("audio/press-up.wav");
 
 
 let started = false;
-let userTurn = false;
+let userTurn = true;
 
 let pressStartTime = 0;
 let shortPressTime = 300;
@@ -27,53 +30,75 @@ let patternTimeouts = [];
 
 let stage = 1;
 
+let reactionGamesCompleted = 0;
+
+outerButton.addEventListener("keydown", (e) => {
+    if (e.code === "Space") {
+        e.preventDefault(); 
+    }
+});
+
 document.addEventListener("mousedown", () => {
     pressDownSound.play();
     pressStartTime = Date.now();
     if (userTurn) {
-        changeLightColor(shortPressLightColor);
-        lightTimeout = setTimeout(() => {
-            changeLightColor(longPressLightColor);
-        }, shortPressTime);
+        if (started) {
+            if (stage == 2) {
+                reactionGameCheck();
+                return;
+            }
+            changeLightColor(shortPressLightColor);
+            lightTimeout = setTimeout(() => {
+                changeLightColor(longPressLightColor);
+            }, shortPressTime);
+        }
+    } else {
+        endGame();
     }
 });
 
 document.addEventListener("mouseup", () => {
     pressUpSound.play();
-    clearTimeout(lightTimeout);
-    changeLightColor(neutralLightColor);
-    const pressDuration = Date.now() - pressStartTime; 
-    if (started) {
-        if (userTurn) {
-            if (pressDuration <= shortPressTime) {
-                userInput.push("short");
-                checkUserInput();
+    if (stage == 1) {
+        clearTimeout(lightTimeout);
+        changeLightColor(neutralLightColor);
+        const pressDuration = Date.now() - pressStartTime; 
+        if (started) {
+            if (userTurn) {
+                if (stage == 1) {
+                    if (pressDuration <= shortPressTime) {
+                    userInput.push("short");
+                    checkUserInput();
+                    } else {
+                        userInput.push("long");
+                        checkUserInput();
+                    }
+                }
             } else {
-                userInput.push("long");
-                checkUserInput();
+                endGame();
             }
         } else {
-            endGame();
+            startGame();
         }
-    } else {
-        startGame();
     }
 });
 
 function startGame() {
-    if (lightTimeout) {
-        clearTimeout(lightTimeout);
-    }
+    if (stage == 1) {
+        if (lightTimeout) {
+            clearTimeout(lightTimeout);
+        }
 
-    started = true;
-    changeLightColor(correctLightColor);
-    lightTimeout = setTimeout(() => {
-        changeLightColor(neutralLightColor);
-        setTimeout(() => {
-            generateNextPattern();
-            playPattern();
-        }, 300);
-    }, 1000);
+        started = true;
+        changeLightColor(correctLightColor);
+        lightTimeout = setTimeout(() => {
+            changeLightColor(neutralLightColor);
+            setTimeout(() => {
+                generateNextPattern();
+                playPattern();
+            }, 300);
+        }, 1000);
+    }
 }
 
 function endGame() {
@@ -88,7 +113,9 @@ function endGame() {
     started = false;
     pattern = [];
     userInput = [];
-    userTurn = false;
+    userTurn = true;
+    reactionGamesCompleted = 0;
+    stage = 1;
     lightTimeout = setTimeout(() => {
         changeLightColor(neutralLightColor);
     }, 1000);
@@ -156,7 +183,42 @@ function checkUserInput() {
         lightTimeout = setTimeout(() => {
             changeLightColor(neutralLightColor);
             generateNextPattern();
-            playPattern();
+            if (pattern.length > 5) {
+                stage++;
+                reactionGame();
+            } else {
+                playPattern();
+            }
+        }, 1000);
+    }
+}
+
+function reactionGame() {
+    changeLightColor(stopLightColor);
+    let randomDelay = Math.floor(Math.random() * 5000) + 3000;
+    userTurn = false;
+    lightTimeout = setTimeout(() => {
+        changeLightColor(goLightColor);
+        userTurn = true;
+        lightTimeout = setTimeout(() => {
+            userTurn = false;
+            endGame();
+        }, 400);
+    }, randomDelay);
+}
+
+function reactionGameCheck() {
+    if (lightTimeout) {
+        clearTimeout(lightTimeout);
+    }
+    reactionGamesCompleted++;
+    if (reactionGamesCompleted < 5) {
+        reactionGame();
+    } else {
+        stage++;
+        changeLightColor(correctLightColor);
+        lightTimeout = setTimeout(() => {
+            changeLightColor(neutralLightColor);
         }, 1000);
     }
 }
