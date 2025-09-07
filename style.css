@@ -12,9 +12,9 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -210px 0px 0px -165px;
+    margin: -215px 0px 0px -170px;
     background-color: #da8f8f;
-    border: 5px solid #ffffff;
+    border: 10px solid #000000;
     padding: 80px 160px;
     border-radius: 50%;
     font-size: 16px;
@@ -25,9 +25,9 @@ body {
     position: absolute;
     left: 50%;
     top: 40%;
-    margin: -120px 0px 0px -165px;
+    margin: -125px 0px 0px -170px;
     background-color: #925555;
-    border: 5px solid #ffffff;
+    border: 10px solid #000000;
     padding: 120px 160px;
     border-radius: 0px 0px 50% 50%;
     cursor: pointer;
@@ -41,7 +41,7 @@ body {
     top: 40%;
     transform: translate(-50%, -20%);
     background-color: #463f3f;
-    border: 5px solid #ffffff;
+    border: 10px solid #000;
     padding: 180px 200px;
     border-radius: 10px;
     font-size: 16px;
@@ -54,7 +54,7 @@ body {
     top: 0%;
     transform: translate(-50%, -5%);
     background-color: #585353;
-    border: 5px solid #ffffff;
+    border: 10px solid #000;
     padding: 110px 200px;
     border-radius: 10px;
     font-size: 16px;
@@ -62,10 +62,10 @@ body {
 }
 
 .outer-button:active .inner-button {
-    margin: -150px 0px 0px -165px;
+    margin: -155px 0px 0px -170px;
 }
 
 .outer-button:active {
-    margin: 0px 0px 0px -165px;
+    margin: 0px 0px 0px -170px;
     padding: 60px 160px;
 }
