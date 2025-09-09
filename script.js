@@ -321,20 +321,15 @@ function colorGame() {
     randomInvalidColorGameColor = colorGameColor.invalidColors[Math.floor(Math.random() * colorGameColor.invalidColors.length)];
     changeLightColor(colorGameColor.color);
     let tempColorGameCycle = [randomInvalidColorGameColor, colorGameColor.validColors[0], colorGameColor.validColors[1]]
-    console.log(tempColorGameCycle);
     for (let i = 0; i < 3; i++) {
         const randomColor = tempColorGameCycle[Math.floor(Math.random() * tempColorGameCycle.length)];
-        console.log(randomColor);
         colorGameCycle.push(randomColor);
         tempColorGameCycle.splice(tempColorGameCycle.indexOf(randomColor), 1);
     }
-    console.log(colorGameCycle);
-    console.log(tempColorGameCycle);
     lightTimeout = setTimeout(() => {
         changeLightColor(neutralLightColor);
         lightTimeout = setTimeout(() => {
             userTurn = true;
-            console.log(colorGameCycle);
             cycleColorOptions();
         }, 1000);
     }, 1000); 
@@ -343,7 +338,6 @@ function colorGame() {
 function cycleColorOptions() {
     selectedColor = colorGameCycle[selectedColorID];
     changeLightColor(selectedColor);
-    console.log(selectedColor);
     lightTimeout = setTimeout(() => {
         if (userTurn) {
             selectedColorID = (selectedColorID + 1) % 3;
@@ -357,7 +351,6 @@ function colorGameCheck() {
     if (lightTimeout) {
         clearTimeout(lightTimeout);
     }
-    console.log("Selected: " + selectedColor);
     if (colorGameColor.validColors.indexOf(selectedColor) > -1) {
         loseGame();
     } else {
