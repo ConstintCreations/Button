@@ -80,11 +80,42 @@ body {
     padding: 10px 10px;
 }
 
-*:active .inner-button {
+.hint {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff22;
+    outline: none;
+    border: none;
+    padding: 15px 20px;
+    color: #b2b7ba;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.hint:active {
+    background-color: #ffffff44;
+}
+
+.hint-text {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #b2b7ba;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/**:active .inner-button {
     margin: -155px 0px 0px -170px;
 }
 
 *:active .outer-button {
     margin: 0px 0px 0px -170px;
     padding: 60px 160px;
-}
+}*/
